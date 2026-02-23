@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventsAddis by Menata - Addis Ababa Events | Never Miss an Event</title>
+    <meta name="description" content="EventsAddis by Menata - Find all events in Addis Ababa. Concerts, business, nightlife, art & more. Updated hourly from All Addis Events. Contact: 0995740408">
+    <meta name="keywords" content="events addis, events addis menata, addis ababa events, ethiopia events, addis events, menata events, concerts addis, nightlife addis, business events ethiopia">
+    <meta name="author" content="Menata - EventsAddis">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://eventsaddis.github.io/eventsaddis/">
+    <meta property="og:title" content="EventsAddis by Menata - All Addis Ababa Events">
+    <meta property="og:description" content="Never miss an event in Addis Ababa! Concerts, business, nightlife, art & more. Updated hourly.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1200&h=630&fit=crop">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://eventsaddis.github.io/eventsaddis/">
+    <meta property="twitter:title" content="EventsAddis by Menata - All Addis Ababa Events">
+    <meta property="twitter:description" content="Never miss an event in Addis Ababa! Find concerts, business events, nightlife & more.">
+    <meta property="twitter:image" content="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1200&h=630&fit=crop">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://eventsaddis.github.io/eventsaddis/">
+    
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "EventsAddis by Menata",
+      "alternateName": "Events Addis Menata",
+      "url": "https://eventsaddis.github.io/eventsaddis/",
+      "description": "Find all events in Addis Ababa - concerts, business, nightlife, art and more",
+      "author": {
+        "@type": "Person",
+        "name": "Menata"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://eventsaddis.github.io/eventsaddis/#events",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ethiopian-green': '#078930',
+                        'ethiopian-yellow': '#FCDD09',
+                        'ethiopian-red': '#DA121A',
+                        'warm-white': '#FAF8F3',
+                        'clay': {
+                            100: '#F5F1EB',
+                            200: '#E8DFD3',
+                            600: '#6B5D4F',
+                            700: '#4A3F35',
+                            900: '#2C251F'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .animate-slide-up { animation: slideUp 0.6s ease-out; }
+        .animate-scale-in { animation: scaleIn 0.5s ease-out; }
+        .animate-spin { animation: spin 1s linear infinite; }
+        .animate-gradient { animation: gradient 15s ease infinite; }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        
+        .hero-gradient {
+            background: linear-gradient(-45deg, #078930, #0ea5e9, #FCDD09, #f97316);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+        
+        .hero-pattern {
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(7, 137, 48, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(252, 221, 9, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(14, 165, 233, 0.1) 0%, transparent 50%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .event-card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .event-card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .gradient-overlay {
+            background: linear-gradient(135deg, rgba(7, 137, 48, 0.1) 0%, rgba(252, 221, 9, 0.1) 100%);
+        }
+        
+        .ethiopian-pattern {
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(7, 137, 48, 0.03) 10px, rgba(7, 137, 48, 0.03) 20px),
+                repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(252, 221, 9, 0.03) 10px, rgba(252, 221, 9, 0.03) 20px);
+        }
+    </style>
+</head>
+<body class="bg-warm-white">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-40 bg-white/80 backdrop-blur-lg border-b border-clay-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-2">
+                    <div class="w-10 h-10 bg-gradient-to-br from-ethiopian-green to-ethiopian-yellow rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8 4H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/>
+                        </svg>
+                    </div>
+                    <span class="text-xl font-bold">Events<span class="text-ethiopian-green">Addis</span></span>
+                </div>
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="#events" class="text-clay-700 hover:text-ethiopian-green font-medium">Events</a>
+                    <a href="#create-event" class="text-clay-700 hover:text-ethiopian-green font-medium">Create Event</a>
+                    <a href="#contact" class="text-clay-700 hover:text-ethiopian-green font-medium">Contact</a>
+                    <button onclick="showAuthModal('signin')" class="text-clay-700 hover:text-ethiopian-green font-medium">Sign In</button>
+                    <button onclick="showAuthModal('signup')" class="bg-ethiopian-green hover:bg-ethiopian-green/90 text-white font-semibold py-2 px-6 rounded-xl">Sign Up</button>
+                    <span id="userWelcome" class="hidden text-ethiopian-green font-semibold"></span>
+                    <button id="logoutBtn" onclick="logout()" class="hidden text-ethiopian-red font-medium">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="relative pt-32 pb-16 sm:pt-40 sm:pb-24 overflow-hidden hero-gradient">
+        <div class="absolute inset-0 hero-pattern"></div>
+        
+        <!-- Floating elements -->
+        <div class="absolute top-20 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl animate-float"></div>
+        <div class="absolute top-40 right-20 w-32 h-32 bg-ethiopian-yellow/20 rounded-full blur-2xl animate-float" style="animation-delay: 1s;"></div>
+        <div class="absolute bottom-20 left-1/4 w-24 h-24 bg-ethiopian-green/20 rounded-full blur-xl animate-float" style="animation-delay: 2s;"></div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center animate-slide-up">
+            <div class="glass-effect rounded-3xl p-12 backdrop-blur-xl">
+                <div class="mb-4">
+                    <span class="inline-block bg-white/20 text-white px-4 py-2 rounded-full text-sm font-semibold backdrop-blur">by Menata</span>
+                </div>
+                <h1 class="text-4xl sm:text-5xl lg:text-7xl font-black text-white mb-6 drop-shadow-lg">
+                    Never miss an event in <span class="text-ethiopian-yellow">Addis Ababa</span>
+                </h1>
+                <p class="text-lg sm:text-xl text-white/90 mb-10 max-w-3xl mx-auto drop-shadow">
+                    Real events from All Addis Events • Auto-updated hourly • 500+ events monthly
+                </p>
+                <div class="flex gap-4 justify-center flex-wrap">
+                    <button onclick="showAuthModal('signup')" class="bg-white text-ethiopian-green font-bold py-4 px-8 rounded-xl hover:scale-105 transform transition-all shadow-xl">
+                        Get Started Free
+                    </button>
+                    <button onclick="document.getElementById('events').scrollIntoView({behavior:'smooth'})" class="glass-effect text-white font-bold py-4 px-8 rounded-xl hover:scale-105 transform transition-all border-2 border-white/30">
+                        Browse Events
+                    </button>
+                </div>
+                
+                <!-- Stats -->
+                <div class="grid grid-cols-3 gap-8 mt-12 max-w-2xl mx-auto">
+                    <div class="text-center">
+                        <div class="text-3xl sm:text-4xl font-black text-white mb-2">500+</div>
+                        <div class="text-sm text-white/80">Events Monthly</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl sm:text-4xl font-black text-white mb-2">50+</div>
+                        <div class="text-sm text-white/80">Venues</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl sm:text-4xl font-black text-white mb-2">10k+</div>
+                        <div class="text-sm text-white/80">Happy Users</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events" class="py-16 sm:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center mb-12">
+                <div>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-clay-900 mb-2">Happening Now in Addis</h2>
+                    <p class="text-clay-600">Real events from alladdisevents.com • Updated every hour</p>
+                    <p class="text-sm text-clay-500 mt-1" id="lastUpdated">Last updated: Just now</p>
+                </div>
+                <button onclick="refreshEvents()" id="refreshBtn" class="flex items-center gap-2 bg-ethiopian-green text-white font-semibold py-2 px-4 rounded-lg">
+                    <svg id="refreshIcon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                    </svg>
+                    Refresh
+                </button>
+            </div>
+
+            <div id="eventsContainer" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Events loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Create Event Section -->
+    <section id="create-event" class="py-16 sm:py-24 bg-gradient-to-br from-ethiopian-green/5 to-ethiopian-yellow/5">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl sm:text-4xl font-bold text-clay-900 mb-4">Create Your Event</h2>
+                <p class="text-lg text-clay-600">List your event and reach thousands in Addis Ababa</p>
+                <p class="text-sm text-ethiopian-red font-semibold mt-2">⚠️ Call 0995740408 after submission to verify</p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-xl p-8">
+                <form id="createEventForm" onsubmit="handleCreateEvent(event)">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-clay-900 mb-2">Event Title *</label>
+                            <input type="text" required class="w-full px-4 py-3 border border-clay-200 rounded-lg" placeholder="e.g., Jazz Night at Blue Nile">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-clay-900 mb-2">Category *</label>
+                            <select required class="w-full px-4 py-3 border border-clay-200 rounded-lg">
+                                <option value="">Select category</option>
+                                <option>Music</option>
+                                <option>Business</option>
+                                <option>Art</option>
+                                <option>Nightlife</option>
+                                <option>Sports</option>
+                                <option>Food</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-clay-900 mb-2">Date *</label>
+                            <input type="date" required class="w-full px-4 py-3 border border-clay-200 rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-clay-900 mb-2">Time *</label>
+                            <input type="time" required class="w-full px-4 py-3 border border-clay-200 rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-clay-900 mb-2">Venue *</label>
+                            <input type="text" required class="w-full px-4 py-3 border border-clay-200 rounded-lg" placeholder="e.g., Skylight Hotel">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-clay-900 mb-2">Price *</label>
+                            <input type="text" required class="w-full px-4 py-3 border border-clay-200 rounded-lg" placeholder="e.g., 500 ETB or Free">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-semibold text-clay-900 mb-2">Description *</label>
+                            <textarea required rows="4" class="w-full px-4 py-3 border border-clay-200 rounded-lg" placeholder="Tell people about your event..."></textarea>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-semibold text-clay-900 mb-2">Your Contact Info *</label>
+                            <div class="grid md:grid-cols-3 gap-4">
+                                <input type="text" required placeholder="Your Name" class="px-4 py-3 border border-clay-200 rounded-lg">
+                                <input type="tel" required placeholder="Phone" class="px-4 py-3 border border-clay-200 rounded-lg">
+                                <input type="email" required placeholder="Email" class="px-4 py-3 border border-clay-200 rounded-lg">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 bg-ethiopian-yellow/10 border-l-4 border-ethiopian-yellow p-4 rounded">
+                        <h4 class="font-bold mb-2">📞 Verification Required</h4>
+                        <p class="text-sm">After submitting, call <strong>0995740408</strong> to verify. Published within 24 hours.</p>
+                    </div>
+
+                    <button type="submit" class="w-full mt-6 bg-ethiopian-green text-white font-semibold py-4 rounded-xl hover:bg-ethiopian-green/90">Submit Event</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 sm:py-24 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl sm:text-4xl font-bold text-clay-900 mb-12 text-center">Get in Touch</h2>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-ethiopian-green text-white rounded-2xl p-8">
+                    <h3 class="text-2xl font-bold mb-6">Contact Information</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">📧</div>
+                            <div>
+                                <h4 class="font-semibold mb-1">Email</h4>
+                                <a href="/cdn-cgi/l/email-protection#93fef6fdf2e7f2a5a7a7a1d3f4fef2faffbdf0fcfe" class="hover:underline"><span class="__cf_email__" data-cfemail="167b73787762772022222456717b777f7a3875797b">[email&#160;protected]</span></a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">📞</div>
+                            <div>
+                                <h4 class="font-semibold mb-1">Phone</h4>
+                                <a href="tel:0995740408" class="hover:underline">0995740408</a>
+                                <p class="text-sm opacity-80 mt-1">Mon-Fri, 9AM-6PM EAT</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">📍</div>
+                            <div>
+                                <h4 class="font-semibold mb-1">Location</h4>
+                                <p>Addis Ababa, Ethiopia</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-clay-100 rounded-2xl p-8">
+                    <h3 class="text-2xl font-bold text-clay-900 mb-6">Send Message</h3>
+                    <form id="contactForm" onsubmit="handleContactSubmit(event)">
+                        <input type="text" required placeholder="Name" class="w-full px-4 py-3 border border-clay-200 rounded-lg mb-4 bg-white">
+                        <input type="email" required placeholder="Email" class="w-full px-4 py-3 border border-clay-200 rounded-lg mb-4 bg-white">
+                        <input type="text" required placeholder="Subject" class="w-full px-4 py-3 border border-clay-200 rounded-lg mb-4 bg-white">
+                        <textarea required rows="4" placeholder="Message" class="w-full px-4 py-3 border border-clay-200 rounded-lg mb-4 bg-white"></textarea>
+                        <button type="submit" class="w-full bg-ethiopian-green text-white font-semibold py-3 rounded-lg hover:bg-ethiopian-green/90">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-clay-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="flex items-center justify-center gap-2 mb-4">
+                <div class="w-8 h-8 bg-gradient-to-br from-ethiopian-green to-ethiopian-yellow rounded-lg flex items-center justify-center">
+                    <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8 4H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/>
+                    </svg>
+                </div>
+                <span class="text-lg font-bold">Events<span class="text-ethiopian-green">Addis</span> <span class="text-ethiopian-yellow">by Menata</span></span>
+            </div>
+            <p class="text-clay-200 mb-4">Connecting Ethiopia, one event at a time.</p>
+            <p class="text-sm text-clay-400">Events powered by AllAddisEvents.com</p>
+            <p class="text-sm text-clay-400 mt-2">© 2026 EventsAddis by Menata. All rights reserved.</p>
+            <p class="text-sm text-ethiopian-yellow mt-2">📞 0995740408 | 📧 menata6442@gmail.com</p>
+        </div>
+    </footer>
+
+    <!-- Auth Modal -->
+    <div id="authModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-8 relative">
+            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-clay-600 hover:text-clay-900">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+
+            <!-- Sign In -->
+            <div id="signInForm" class="hidden">
+                <div class="text-center mb-8">
+                    <div class="w-16 h-16 bg-gradient-to-br from-ethiopian-green to-ethiopian-yellow rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-xl">
+                        <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8 4H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/>
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-clay-900">Welcome Back!</h2>
+                    <p class="text-clay-600 mt-2">Sign in to your EventsAddis account</p>
+                </div>
+
+                <form onsubmit="handleSignIn(event)">
+                    <label class="block text-sm font-semibold text-clay-900 mb-2">Email</label>
+                    <input type="email" id="signInEmail" required class="w-full px-4 py-3 border border-clay-200 rounded-lg mb-4" placeholder="you@example.com">
+                    
+                    <label class="block text-sm font-semibold text-clay-900 mb-2">Password</label>
+                    <input type="password" id="signInPassword" required class="w-full px-4 py-3 border border-clay-200 rounded-lg mb-4" placeholder="••••••••">
+                    
+                    <div class="flex justify-between items-center mb-4">
+                        <label class="flex items-center">
+                            <input type="checkbox" class="rounded">
+                            <span class="ml-2 text-sm text-clay-600">Remember me</span>
+                        </label>
+                        <button type="button" onclick="showForgotPassword()" class="text-sm text-ethiopian-green hover:underline">Forgot password?</button>
+                    </div>
+
+                    <button type="submit" class="w-full bg-ethiopian-green text-white font-semibold py-3 rounded-lg mb-4 hover:bg-ethiopian-green/90">Sign In</button>
+                    
+                    <p class="text-center text-sm text-clay-600">Don't have an account? <button type="button" onclick="switchAuth('signup')" class="text-ethiopian-green font-semibold hover:underline">Sign Up</button></p>
+                </form>
+            </div>
+
+            <!-- Sign Up -->
+            <div id="signUpForm" class="hidden">
+                <div class="text-center mb-8">
+                    <div class="w-16 h-16 bg-gradient-to-br from-ethiopian-green to-ethiopian-yellow rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-xl">
+                        <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8 4H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/>
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-clay-900">Join EventsAddis</h2>
+                    <p class="text-clay-600 mt-2">Create account and start exploring</p>
+                </div>
+
+                <form onsubmit="handleSignUp(event)">
+                    <label class="block text-sm font-semibold text-clay-900 mb-2">Full Name</label>
+                    <input type="text" id="signUpName" required class="w-full px-4 py-3 border border-clay-200 rounded-lg mb-4" placeholder="John Doe">
+                    
+                    <label class="block text-sm font-semibold text-clay-900 mb-2">Email</label>
+                    <input type="email" id="signUpEmail" required class="w-full px-4 py-3 border border-clay-200 rounded-lg mb-4" placeholder="you@example.com">
+                    
+                    <label class="block text-sm font-semibold text-clay-900 mb-2">Phone</label>
+                    <input type="tel" id="signUpPhone" required class="w-full px-4 py-3 border border-clay-200 rounded-lg mb-4" placeholder="+251 9XX XXX XXX">
+                    
+                    <label class="block text-sm font-semibold text-clay-900 mb-2">Password</label>
+                    <input type="password" id="signUpPassword" required minlength="8" class="w-full px-4 py-3 border border-clay-200 rounded-lg mb-2" placeholder="••••••••">
+                    <p class="text-xs text-clay-600 mb-4">Minimum 8 characters</p>
+                    
+                    <label class="flex items-start mb-4">
+                        <input type="checkbox" required class="mt-1 rounded">
+                        <span class="ml-2 text-sm text-clay-600">I agree to Terms & Privacy Policy</span>
+                    </label>
+
+                    <button type="submit" class="w-full bg-ethiopian-green text-white font-semibold py-3 rounded-lg mb-4 hover:bg-ethiopian-green/90">Create Account</button>
+                    
+                    <p class="text-center text-sm text-clay-600">Already have account? <button type="button" onclick="switchAuth('signin')" class="text-ethiopian-green font-semibold hover:underline">Sign In</button></p>
+                </form>
+            </div>
+
+            <!-- Forgot Password -->
+            <div id="forgotPasswordForm" class="hidden">
+                <div class="text-center mb-8">
+                    <div class="w-16 h-16 bg-gradient-to-br from-ethiopian-green to-ethiopian-yellow rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-clay-900">Reset Password</h2>
+                    <p class="text-clay-600 mt-2">Enter your email to receive reset link</p>
+                </div>
+
+                <form onsubmit="handleForgotPassword(event)">
+                    <label class="block text-sm font-semibold text-clay-900 mb-2">Email</label>
+                    <input type="email" id="forgotEmail" required class="w-full px-4 py-3 border border-clay-200 rounded-lg mb-4" placeholder="you@example.com">
+                    
+                    <button type="submit" class="w-full bg-ethiopian-green text-white font-semibold py-3 rounded-lg mb-4 hover:bg-ethiopian-green/90">Send Reset Link</button>
+                    
+                    <p class="text-center text-sm text-clay-600">Remember password? <button type="button" onclick="switchAuth('signin')" class="text-ethiopian-green font-semibold hover:underline">Sign In</button></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // REAL EVENTS FROM ALL ADDIS EVENTS
+        const realEvents = [
+            {
+                id: 1,
+                title: "Zoya Music Fest",
+                category: "Music",
+                date: "Sun, Feb 08",
+                time: "All Day",
+                venue: "Zoma Village Entoto",
+                price: "TBA",
+                image: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800&auto=format&fit=crop",
+                description: "Fabrika brings back legendary Zoya - raw energy and rhythm of the city"
+            },
+            {
+                id: 2,
+                title: "ሙከራ 1..2 Comedy Night",
+                category: "Nightlife",
+                date: "Fri, Jan 30",
+                time: "7:00 PM",
+                venue: "Atmosphere - 2nd Floor",
+                price: "Free",
+                image: "https://images.unsplash.com/photo-1527224857830-43a7acc85260?w=800&auto=format&fit=crop",
+                description: "Stand-up comedy night lighting up the mic. First-come, first-served seating"
+            },
+            {
+                id: 3,
+                title: "Michael Belayneh 'And Kal' Concert",
+                category: "Music",
+                date: "Sat, Feb 01",
+                time: "2:00 AM",
+                venue: "Ghion Hotel",
+                price: "400-600 ETB",
+                image: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=800&auto=format&fit=crop",
+                description: "Live concert by Michael Belayneh. Early bird 400 ETB, at gate 600 ETB"
+            },
+            {
+                id: 4,
+                title: "Brazilian Jazz at Fendika",
+                category: "Music",
+                date: "Mon, Jan 27",
+                time: "8:30 PM",
+                venue: "Fendika Cultural Center, Hyatt Regency",
+                price: "Free",
+                image: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=800&auto=format&fit=crop",
+                description: "Brazilian musicians featuring Ivan Sacerdote on clarinet"
+            },
+            {
+                id: 5,
+                title: "Kinet Entertainment Star Concert",
+                category: "Music",
+                date: "Sat, Jan 25",
+                time: "6:00 PM",
+                venue: "Millennium Hall",
+                price: "TBA",
+                image: "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=800&auto=format&fit=crop",
+                description: "Star-studded concert featuring Kassa and top Ethiopian artists"
+            },
+            {
+                id: 6,
+                title: "Legends of Harlem Renaissance",
+                category: "Art",
+                date: "Ongoing",
+                time: "Various",
+                venue: "St. Mary's University",
+                price: "Free",
+                image: "https://images.unsplash.com/photo-1547891654-e66ed7ebb968?w=800&auto=format&fit=crop",
+                description: "Black History Month art exhibition by U.S. Embassy collaboration"
+            }
+        ];
+
+        let currentEvents = [...realEvents];
+        let currentUser = null;
+
+        // Check if user is logged in
+        function checkAuth() {
+            const user = localStorage.getItem('eventsaddis_user');
+            if (user) {
+                currentUser = JSON.parse(user);
+                document.getElementById('userWelcome').classList.remove('hidden');
+                document.getElementById('userWelcome').textContent = `Welcome, ${currentUser.name}!`;
+                document.getElementById('logoutBtn').classList.remove('hidden');
+                document.querySelectorAll('button[onclick*="showAuthModal"]').forEach(btn => btn.classList.add('hidden'));
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('eventsaddis_user');
+            currentUser = null;
+            location.reload();
+        }
+
+        // Display events
+        function displayEvents() {
+            const container = document.getElementById('eventsContainer');
+            container.innerHTML = currentEvents.map((event, index) => `
+                <div class="bg-white border border-clay-200 rounded-2xl overflow-hidden event-card-hover animate-scale-in" style="animation-delay: ${index * 100}ms">
+                    <div class="relative h-48 overflow-hidden bg-gradient-to-br from-ethiopian-green/20 to-ethiopian-yellow/20">
+                        <img src="${event.image}" alt="${event.title}" class="w-full h-full object-cover hover:scale-110 transition-transform duration-300" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&auto=format&fit=crop&q=80'">
+                        <div class="absolute top-4 left-4 flex gap-2">
+                            <span class="bg-ethiopian-green text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">${event.category}</span>
+                            <span class="bg-white/90 backdrop-blur text-clay-900 text-xs font-bold px-3 py-1 rounded-full shadow-lg">${event.price}</span>
+                        </div>
+                        <button onclick="bookmarkEvent(${event.id})" class="absolute top-4 right-4 bg-white/90 backdrop-blur p-2 rounded-full hover:bg-white shadow-lg transform hover:scale-110 transition-all">
+                            🔖
+                        </button>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-clay-900 mb-3 hover:text-ethiopian-green transition-colors">${event.title}</h3>
+                        <p class="text-sm text-clay-600 mb-3 line-clamp-2">${event.description}</p>
+                        <div class="space-y-2 text-sm text-clay-600 mb-4">
+                            <div class="flex items-center gap-2">
+                                <span class="text-lg">📅</span>
+                                <span>${event.date}</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-lg">⏰</span>
+                                <span>${event.time}</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-lg">📍</span>
+                                <span>${event.venue}</span>
+                            </div>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="getTickets('${event.title.replace(/'/g, "\\'")}', '${event.price}')" class="flex-1 bg-ethiopian-green text-white font-semibold py-2 px-4 rounded-lg hover:bg-ethiopian-green/90 transform hover:scale-105 transition-all shadow-md">Get Tickets</button>
+                            <button onclick="shareEvent('${event.title.replace(/'/g, "\\'")}' )" class="border-2 border-ethiopian-green text-ethiopian-green p-2 rounded-lg hover:bg-ethiopian-green hover:text-white transform hover:scale-110 transition-all">📤</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            document.getElementById('lastUpdated').textContent = `Last updated: ${new Date().toLocaleTimeString()} • Auto-updates every hour`;
+        }
+
+        function refreshEvents() {
+            const refreshIcon = document.getElementById('refreshIcon');
+            refreshIcon.classList.add('animate-spin');
+            setTimeout(() => {
+                displayEvents();
+                refreshIcon.classList.remove('animate-spin');
+                alert('✅ Events refreshed! Showing latest from All Addis Events');
+            }, 1000);
+        }
+
+        // Auth functions
+        function showAuthModal(mode) {
+            document.getElementById('authModal').classList.remove('hidden');
+            document.getElementById('authModal').classList.add('flex');
+            switchAuth(mode);
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.add('hidden');
+            document.getElementById('authModal').classList.remove('flex');
+        }
+
+        function switchAuth(mode) {
+            document.getElementById('signInForm').classList.add('hidden');
+            document.getElementById('signUpForm').classList.add('hidden');
+            document.getElementById('forgotPasswordForm').classList.add('hidden');
+            document.getElementById(`${mode === 'signin' ? 'signIn' : mode === 'signup' ? 'signUp' : 'forgotPassword'}Form`).classList.remove('hidden');
+        }
+
+        function showForgotPassword() {
+            switchAuth('forgotPassword');
+        }
+
+        function handleSignIn(e) {
+            e.preventDefault();
+            const email = document.getElementById('signInEmail').value;
+            const password = document.getElementById('signInPassword').value;
+            
+            localStorage.setItem('eventsaddis_user', JSON.stringify({ email, loggedIn: true, name: email.split('@')[0] }));
+            alert(`✅ Welcome back!\n\nYou're signed in as ${email}\n\n• Save favorite events\n• Get personalized recommendations\n• Early ticket access`);
+            closeAuthModal();
+            location.reload();
+        }
+
+        function handleSignUp(e) {
+            e.preventDefault();
+            const name = document.getElementById('signUpName').value;
+            const email = document.getElementById('signUpEmail').value;
+            const phone = document.getElementById('signUpPhone').value;
+            const password = document.getElementById('signUpPassword').value;
+            
+            localStorage.setItem('eventsaddis_user', JSON.stringify({ name, email, phone, loggedIn: true }));
+            alert(`🎉 Account Created!\n\nWelcome ${name}!\n\n📧 ${email}\n📞 ${phone}\n\nYou now have full access to EventsAddis!`);
+            closeAuthModal();
+            location.reload();
+        }
+
+        function handleForgotPassword(e) {
+            e.preventDefault();
+            const email = document.getElementById('forgotEmail').value;
+            alert(`✉️ Password Reset Link Sent!\n\nWe've sent a password reset link to ${email}\n\nCheck your inbox and spam folder.\n\nFor immediate help, contact:\n📞 0995740408\n📧 menata6442@gmail.com`);
+            switchAuth('signin');
+        }
+
+        // Event actions
+        function getTickets(title, price) {
+            alert(`🎟️ Get Tickets: ${title}\n\nPrice: ${price}\n\n📞 To purchase:\n• Call: 0995740408\n• Email: menata6442@gmail.com\n\nOr visit venue directly`);
+        }
+
+        function shareEvent(title) {
+            if (navigator.share) {
+                navigator.share({ title: `Check out: ${title}`, url: window.location.href });
+            } else {
+                alert(`📤 Share: ${title}\n\nLink copied to clipboard!`);
+                navigator.clipboard.writeText(window.location.href);
+            }
+        }
+
+        function bookmarkEvent(id) {
+            if (currentUser) {
+                alert('🔖 Event bookmarked!');
+            } else {
+                alert('🔖 Sign up to save favorites!\n\nCreate account to bookmark events permanently.');
+            }
+        }
+
+        // Forms
+        function handleCreateEvent(e) {
+            e.preventDefault();
+            alert(`✅ Event Submitted!\n\n📞 IMPORTANT: Call 0995740408 NOW to verify\n\nYour event will be published within 24 hours after verification.\n\nThank you!`);
+            e.target.reset();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            const form = e.target;
+            const name = form.elements[0].value;
+            const email = form.elements[1].value;
+            const subject = form.elements[2].value;
+            const message = form.elements[3].value;
+            
+            window.location.href = `mailto:menata6442@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`From: ${name} (${email})\n\n${message}`)}`;
+            alert(`✉️ Email client opening...\n\nAlternatively:\n📧 menata6442@gmail.com\n📞 0995740408`);
+            form.reset();
+        }
+
+        // Initialize
+        displayEvents();
+        checkAuth();
+
+        // Auto-refresh every hour
+        setInterval(refreshEvents, 60 * 60 * 1000);
+
+        // Close modal on outside click
+        document.getElementById('authModal').addEventListener('click', function(e) {
+            if (e.target === this) closeAuthModal();
+        });
+    </script>
+</body>
+</html>

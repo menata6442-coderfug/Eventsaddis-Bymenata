@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventsAddis Admin - Quick Add</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="bg-green-600 text-white p-6">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-3xl font-bold">EventsAddis Quick Add</h1>
+            <p class="text-green-100 mt-2">Add events with real images!</p>
+        </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto p-6">
+        <div class="bg-white rounded-2xl shadow-xl p-8 mb-6">
+            <h2 class="text-2xl font-bold mb-6">➕ Add Event</h2>
+            
+            <form onsubmit="addEvent(event)" class="space-y-4">
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block font-semibold mb-2">Event Title *</label>
+                        <input type="text" id="title" required class="w-full px-4 py-3 border rounded-lg">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-2">Category *</label>
+                        <select id="category" required class="w-full px-4 py-3 border rounded-lg">
+                            <option value="Music">Music</option>
+                            <option value="Business">Business</option>
+                            <option value="Art">Art</option>
+                            <option value="Nightlife">Nightlife</option>
+                            <option value="Sports">Sports</option>
+                            <option value="Food">Food</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-2">Date *</label>
+                        <input type="date" id="date" required class="w-full px-4 py-3 border rounded-lg">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-2">Time *</label>
+                        <input type="time" id="time" required class="w-full px-4 py-3 border rounded-lg">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-2">Venue *</label>
+                        <input type="text" id="venue" required class="w-full px-4 py-3 border rounded-lg">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-2">Price *</label>
+                        <input type="text" id="price" required class="w-full px-4 py-3 border rounded-lg" placeholder="500 ETB or Free">
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block font-semibold mb-2">Description *</label>
+                    <textarea id="description" rows="3" required class="w-full px-4 py-3 border rounded-lg"></textarea>
+                </div>
+
+                <div>
+                    <label class="block font-semibold mb-2">Event Image *</label>
+                    <input type="file" id="imageFile" accept="image/*" class="w-full px-4 py-3 border rounded-lg mb-2" onchange="previewImage()">
+                    <p class="text-sm text-gray-600">Upload image from your computer (JPG, PNG)</p>
+                    <img id="imagePreview" class="mt-4 w-full h-48 object-cover rounded-lg hidden" alt="Preview">
+                </div>
+
+                <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-lg text-xl">
+                    💾 Save Event
+                </button>
+            </form>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-xl p-8">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">📅 Current Events (<span id="eventCount">0</span>)</h2>
+                <div class="flex gap-2">
+                    <button onclick="window.open('index.html', '_blank')" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold">
+                        🌐 View Website
+                    </button>
+                    <button onclick="deleteOldEvents()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-semibold">
+                        🗑️ Delete Old
+                    </button>
+                </div>
+            </div>
+
+            <div id="eventsList" class="grid md:grid-cols-2 gap-4"></div>
+            <div id="noEvents" class="text-center py-12 text-gray-500">No events yet</div>
+        </div>
+    </div>
+
+    <script>
+        function getEvents() {
+            const events = localStorage.getItem('eventsaddis_events');
+            return events ? JSON.parse(events) : [];
+        }
+
+        function saveEvents(events) {
+            localStorage.setItem('eventsaddis_events', JSON.stringify(events));
+            displayEventsList();
+            updateEventCount();
+        }
+
+        function updateEventCount() {
+            document.getElementById('eventCount').textContent = getEvents().length;
+        }
+
+        function previewImage() {
+            const file = document.getElementById('imageFile').files[0];
+            const preview = document.getElementById('imagePreview');
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function addEvent(e) {
+            e.preventDefault();
+            
+            const file = document.getElementById('imageFile').files[0];
+            if (!file) {
+                alert('Please upload an image!');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const newEvent = {
+                    id: Date.now(),
+                    title: document.getElementById('title').value,
+                    category: document.getElementById('category').value,
+                    date: document.getElementById('date').value,
+                    time: document.getElementById('time').value,
+                    venue: document.getElementById('venue').value,
+                    price: document.getElementById('price').value,
+                    description: document.getElementById('description').value,
+                    image: e.target.result, // Base64 image
+                    addedAt: new Date().toISOString()
+                };
+
+                const events = getEvents();
+                events.unshift(newEvent);
+                saveEvents(events);
+
+                alert('🎉 Event saved! It will appear on your website immediately!');
+                
+                // Reset form
+                document.getElementById('title').value = '';
+                document.getElementById('description').value = '';
+                document.getElementById('imageFile').value = '';
+                document.getElementById('imagePreview').classList.add('hidden');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function displayEventsList() {
+            const events = getEvents();
+            const container = document.getElementById('eventsList');
+            const noEvents = document.getElementById('noEvents');
+
+            if (events.length === 0) {
+                container.classList.add('hidden');
+                noEvents.classList.remove('hidden');
+                return;
+            }
+
+            noEvents.classList.add('hidden');
+            container.classList.remove('hidden');
+
+            container.innerHTML = events.map(event => `
+                <div class="border rounded-lg p-4 hover:shadow-lg transition-shadow">
+                    <div class="flex gap-4">
+                        <img src="${event.image}" class="w-24 h-24 object-cover rounded-lg">
+                        <div class="flex-1">
+                            <h3 class="font-bold text-lg">${event.title}</h3>
+                            <p class="text-sm text-gray-600">📅 ${event.date} • ⏰ ${event.time}</p>
+                            <p class="text-sm text-gray-600">📍 ${event.venue} • 💵 ${event.price}</p>
+                            <span class="inline-block mt-2 px-2 py-1 bg-green-100 text-green-800 text-xs rounded">${event.category}</span>
+                        </div>
+                    </div>
+                    <button onclick="deleteEvent(${event.id})" class="w-full mt-3 bg-red-600 hover:bg-red-700 text-white text-sm py-2 rounded">Delete</button>
+                </div>
+            `).join('');
+        }
+
+        function deleteEvent(id) {
+            if (confirm('Delete this event?')) {
+                const events = getEvents().filter(e => e.id !== id);
+                saveEvents(events);
+                alert('✅ Event deleted!');
+            }
+        }
+
+        function deleteOldEvents() {
+            const oneWeekAgo = new Date();
+            oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+            const events = getEvents();
+            const filtered = events.filter(event => {
+                const eventDate = new Date(event.date);
+                return eventDate >= oneWeekAgo;
+            });
+
+            const deletedCount = events.length - filtered.length;
+            
+            if (deletedCount === 0) {
+                alert('✅ No old events to delete!');
+            } else {
+                saveEvents(filtered);
+                alert(`🗑️ Deleted ${deletedCount} old event(s)!`);
+            }
+        }
+
+        updateEventCount();
+        displayEventsList();
+    </script>
+</body>
+</html>

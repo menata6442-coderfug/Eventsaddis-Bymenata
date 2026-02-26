@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventsAddis by Menata - Addis Ababa Events</title>
+    <meta name="description" content="EventsAddis by Menata - Find all events in Addis Ababa. Contact: 0995740408">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes gradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .hero-gradient { background: linear-gradient(-45deg, #078930, #0ea5e9, #FCDD09, #f97316); background-size: 400% 400%; animation: gradient 15s ease infinite; }
+        .event-card-hover { transition: all 0.3s ease; }
+        .event-card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-40 bg-white/80 backdrop-blur-lg border-b">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-gradient-to-br from-green-600 to-yellow-400 rounded-xl flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10z"/>
+                    </svg>
+                </div>
+                <span class="text-xl font-bold">Events<span class="text-green-600">Addis</span> <span class="text-yellow-600 text-sm">by Menata</span></span>
+            </div>
+            <div class="hidden md:flex items-center gap-6">
+                <a href="#events" class="text-gray-700 hover:text-green-600 font-medium">Events</a>
+                <a href="#create-event" class="text-gray-700 hover:text-green-600 font-medium">Create Event</a>
+                <a href="#contact" class="text-gray-700 hover:text-green-600 font-medium">Contact</a>
+                <button onclick="showAuthModal('signin')" class="text-gray-700 hover:text-green-600 font-medium">Sign In</button>
+                <button onclick="showAuthModal('signup')" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-xl">Sign Up</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="pt-32 pb-16 hero-gradient">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="bg-white/10 backdrop-blur-xl rounded-3xl p-12">
+                <span class="inline-block bg-white/20 text-white px-4 py-2 rounded-full text-sm font-semibold mb-4">by Menata</span>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-6">Never miss an event in <span class="text-yellow-300">Addis Ababa</span></h1>
+                <p class="text-xl text-white/90 mb-8">Real events • Updated daily • 500+ events monthly</p>
+                <p class="text-lg text-white/80 mb-6">📞 0995740408 | 📧 menata6442@gmail.com</p>
+                <div class="flex gap-4 justify-center flex-wrap">
+                    <button onclick="showAuthModal('signup')" class="bg-white text-green-600 font-bold py-4 px-8 rounded-xl hover:scale-105 transform transition">Get Started Free</button>
+                    <button onclick="document.getElementById('events').scrollIntoView({behavior:'smooth'})" class="bg-white/20 border-2 border-white text-white font-bold py-4 px-8 rounded-xl hover:bg-white/30 transition">Browse Events</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center mb-12">
+                <div>
+                    <h2 class="text-4xl font-bold mb-2">Happening in Addis</h2>
+                    <p id="lastUpdated" class="text-gray-600">Loading events...</p>
+                </div>
+                <button onclick="refreshEvents()" class="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700">
+                    🔄 Refresh
+                </button>
+            </div>
+            <div id="eventsContainer" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="col-span-full text-center py-12">
+                    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
+                    <p class="text-gray-600">Loading events...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Create Event Section -->
+    <section id="create-event" class="py-16 bg-gradient-to-br from-green-50 to-yellow-50">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4">Create Your Event</h2>
+                <p class="text-lg text-gray-600">List your event and reach thousands in Addis Ababa</p>
+                <p class="text-sm text-red-600 font-semibold mt-2">⚠️ Call 0995740408 after submission to verify</p>
+            </div>
+            <div class="bg-white rounded-2xl shadow-xl p-8">
+                <form id="createEventForm" onsubmit="handleCreateEvent(event)">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block font-semibold mb-2">Event Title *</label>
+                            <input type="text" required class="w-full px-4 py-3 border rounded-lg" placeholder="Jazz Night at Fendika">
+                        </div>
+                        <div>
+                            <label class="block font-semibold mb-2">Category *</label>
+                            <select required class="w-full px-4 py-3 border rounded-lg">
+                                <option value="">Select...</option>
+                                <option>Music</option>
+                                <option>Business</option>
+                                <option>Art</option>
+                                <option>Nightlife</option>
+                                <option>Sports</option>
+                                <option>Food</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-semibold mb-2">Date *</label>
+                            <input type="date" required class="w-full px-4 py-3 border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block font-semibold mb-2">Time *</label>
+                            <input type="time" required class="w-full px-4 py-3 border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block font-semibold mb-2">Venue *</label>
+                            <input type="text" required class="w-full px-4 py-3 border rounded-lg" placeholder="Ghion Hotel">
+                        </div>
+                        <div>
+                            <label class="block font-semibold mb-2">Price *</label>
+                            <input type="text" required class="w-full px-4 py-3 border rounded-lg" placeholder="500 ETB or Free">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block font-semibold mb-2">Description *</label>
+                            <textarea required rows="3" class="w-full px-4 py-3 border rounded-lg" placeholder="Tell people about your event..."></textarea>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block font-semibold mb-2">Your Contact *</label>
+                            <div class="grid md:grid-cols-3 gap-4">
+                                <input type="text" required placeholder="Name" class="px-4 py-3 border rounded-lg">
+                                <input type="tel" required placeholder="Phone" class="px-4 py-3 border rounded-lg">
+                                <input type="email" required placeholder="Email" class="px-4 py-3 border rounded-lg">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 bg-yellow-100 p-4 rounded-lg border-l-4 border-yellow-500">
+                        <p class="font-bold">📞 Verification Required</p>
+                        <p class="text-sm mt-1">After submitting, call <strong>0995740408</strong> to verify. Published within 24 hours.</p>
+                    </div>
+                    <button type="submit" class="w-full mt-6 bg-green-600 text-white font-bold py-4 rounded-xl hover:bg-green-700">Submit Event</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-white">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12">Get in Touch</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-green-600 text-white rounded-2xl p-8">
+                    <h3 class="text-2xl font-bold mb-6">Contact Information</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center text-2xl">📧</div>
+                            <div>
+                                <h4 class="font-semibold mb-1">Email</h4>
+                                <a href="mailto:menata6442@gmail.com" class="hover:underline">menata6442@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center text-2xl">📞</div>
+                            <div>
+                                <h4 class="font-semibold mb-1">Phone</h4>
+                                <a href="tel:0995740408" class="hover:underline">0995740408</a>
+                                <p class="text-sm opacity-80 mt-1">Mon-Fri, 9AM-6PM</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center text-2xl">📍</div>
+                            <div>
+                                <h4 class="font-semibold mb-1">Location</h4>
+                                <p>Addis Ababa, Ethiopia</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-100 rounded-2xl p-8">
+                    <h3 class="text-2xl font-bold mb-6">Send Message</h3>
+                    <form id="contactForm" onsubmit="handleContactSubmit(event)">
+                        <input type="text" required placeholder="Name" class="w-full px-4 py-3 border rounded-lg mb-4 bg-white">
+                        <input type="email" required placeholder="Email" class="w-full px-4 py-3 border rounded-lg mb-4 bg-white">
+                        <input type="text" required placeholder="Subject" class="w-full px-4 py-3 border rounded-lg mb-4 bg-white">
+                        <textarea required rows="4" placeholder="Message" class="w-full px-4 py-3 border rounded-lg mb-4 bg-white"></textarea>
+                        <button type="submit" class="w-full bg-green-600 text-white font-bold py-3 rounded-lg hover:bg-green-700">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-xl font-bold mb-2">Events<span class="text-green-500">Addis</span> <span class="text-yellow-400">by Menata</span></p>
+            <p class="text-gray-400 mb-4">Connecting Ethiopia, one event at a time</p>
+            <p class="text-sm text-gray-500">© 2026 EventsAddis by Menata</p>
+            <p class="text-sm text-gray-400 mt-2">📞 0995740408 | 📧 menata6442@gmail.com</p>
+        </div>
+    </footer>
+
+    <!-- Auth Modal -->
+    <div id="authModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-8 relative">
+            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-gray-600 hover:text-gray-900 text-2xl font-bold">&times;</button>
+            
+            <!-- Sign In Form -->
+            <div id="signInForm" class="hidden">
+                <h2 class="text-2xl font-bold mb-6 text-center">Welcome Back!</h2>
+                <form onsubmit="handleSignIn(event)">
+                    <input type="email" required placeholder="Email" class="w-full px-4 py-3 border rounded-lg mb-4">
+                    <input type="password" required placeholder="Password" class="w-full px-4 py-3 border rounded-lg mb-4">
+                    <button type="submit" class="w-full bg-green-600 text-white font-bold py-3 rounded-lg hover:bg-green-700 mb-4">Sign In</button>
+                    <p class="text-center text-sm">Don't have account? <button type="button" onclick="switchAuth('signup')" class="text-green-600 font-semibold">Sign Up</button></p>
+                </form>
+            </div>
+
+            <!-- Sign Up Form -->
+            <div id="signUpForm" class="hidden">
+                <h2 class="text-2xl font-bold mb-6 text-center">Join EventsAddis</h2>
+                <form onsubmit="handleSignUp(event)">
+                    <input type="text" required placeholder="Full Name" class="w-full px-4 py-3 border rounded-lg mb-4">
+                    <input type="email" required placeholder="Email" class="w-full px-4 py-3 border rounded-lg mb-4">
+                    <input type="tel" required placeholder="Phone" class="w-full px-4 py-3 border rounded-lg mb-4">
+                    <input type="password" required minlength="8" placeholder="Password (min 8 chars)" class="w-full px-4 py-3 border rounded-lg mb-4">
+                    <button type="submit" class="w-full bg-green-600 text-white font-bold py-3 rounded-lg hover:bg-green-700 mb-4">Create Account</button>
+                    <p class="text-center text-sm">Have account? <button type="button" onclick="switchAuth('signin')" class="text-green-600 font-semibold">Sign In</button></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function loadEvents() {
+            const stored = localStorage.getItem('eventsaddis_events');
+            if (!stored) return [];
+            try { return JSON.parse(stored); } catch { return []; }
+        }
+
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+            const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+            return days[date.getDay()] + ', ' + months[date.getMonth()] + ' ' + date.getDate();
+        }
+
+        function formatTime(timeStr) {
+            if (!timeStr) return 'TBA';
+            const [h,m] = timeStr.split(':');
+            const hour = parseInt(h);
+            const ampm = hour >= 12 ? 'PM' : 'AM';
+            const displayHour = hour % 12 || 12;
+            return displayHour + ':' + m + ' ' + ampm;
+        }
+
+        function displayEvents() {
+            const events = loadEvents();
+            const container = document.getElementById('eventsContainer');
+            const lastUpdated = document.getElementById('lastUpdated');
+
+            if (events.length === 0) {
+                container.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-gray-600 text-xl">No events yet</p><p class="text-gray-500 mt-2">📞 Contact: 0995740408</p></div>';
+                lastUpdated.textContent = 'No events • Add events via admin panel';
+                return;
+            }
+
+            lastUpdated.textContent = events.length + ' events • Last updated: ' + new Date().toLocaleTimeString();
+
+            container.innerHTML = events.map(e => `
+                <div class="bg-white border rounded-2xl overflow-hidden event-card-hover">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="${e.image}" alt="${e.title}" class="w-full h-full object-cover" loading="lazy">
+                        <div class="absolute top-4 left-4 flex gap-2">
+                            <span class="bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">${e.category}</span>
+                            <span class="bg-white/90 text-gray-900 text-xs font-bold px-3 py-1 rounded-full shadow-lg">${e.price}</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3">${e.title}</h3>
+                        <p class="text-sm text-gray-600 mb-3">${e.description.substring(0,100)}...</p>
+                        <div class="space-y-2 text-sm text-gray-600 mb-4">
+                            <div>📅 ${formatDate(e.date)}</div>
+                            <div>⏰ ${formatTime(e.time)}</div>
+                            <div>📍 ${e.venue}</div>
+                        </div>
+                        <button onclick="getTickets('${e.title.replace(/'/g,"\\'")}','${e.price}')" class="w-full bg-green-600 text-white font-semibold py-2 rounded-lg hover:bg-green-700">Get Tickets</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function refreshEvents() {
+            displayEvents();
+            alert('✅ Events refreshed! Showing ' + loadEvents().length + ' events');
+        }
+
+        function getTickets(title,price) {
+            alert('🎟️ ' + title + '\n\nPrice: ' + price + '\n\n📞 Call: 0995740408\n📧 Email: menata6442@gmail.com');
+        }
+
+        function handleCreateEvent(e) {
+            e.preventDefault();
+            alert('✅ Event Submitted!\n\n📞 IMPORTANT: Call 0995740408 NOW to verify\n\nPublished within 24 hours after verification.');
+            e.target.reset();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            const name = e.target[0].value;
+            const email = e.target[1].value;
+            const subject = e.target[2].value;
+            const message = e.target[3].value;
+            window.location.href = 'mailto:menata6442@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent('From: ' + name + ' (' + email + ')\n\n' + message);
+            alert('✉️ Email client opening...\n\n📧 menata6442@gmail.com\n📞 0995740408');
+            e.target.reset();
+        }
+
+        function showAuthModal(mode) {
+            document.getElementById('authModal').classList.remove('hidden');
+            document.getElementById('authModal').classList.add('flex');
+            switchAuth(mode);
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.add('hidden');
+            document.getElementById('authModal').classList.remove('flex');
+        }
+
+        function switchAuth(mode) {
+            document.getElementById('signInForm').classList.add('hidden');
+            document.getElementById('signUpForm').classList.add('hidden');
+            document.getElementById(mode === 'signin' ? 'signInForm' : 'signUpForm').classList.remove('hidden');
+        }
+
+        function handleSignIn(e) {
+            e.preventDefault();
+            alert('✅ Welcome back! You\'re signed in!');
+            closeAuthModal();
+        }
+
+        function handleSignUp(e) {
+            e.preventDefault();
+            alert('🎉 Account Created! Welcome to EventsAddis!');
+            closeAuthModal();
+        }
+
+        // Initialize
+        displayEvents();
+        setInterval(displayEvents, 30000);
+        window.addEventListener('storage', displayEvents);
+    </script>
+</body>
+</html>

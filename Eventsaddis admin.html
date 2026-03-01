@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventsAddis Admin - Add Events</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="bg-green-600 text-white p-6">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-3xl font-bold">EventsAddis Admin Panel</h1>
+            <p class="text-green-100 mt-2">Add events - Works on ALL devices!</p>
+        </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto p-6">
+        <!-- Add Event Form -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 mb-6">
+            <h2 class="text-2xl font-bold mb-6">➕ Add Event</h2>
+            
+            <form onsubmit="addEvent(event)" class="space-y-4">
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block font-semibold mb-2">Event Title *</label>
+                        <input type="text" id="title" required class="w-full px-4 py-3 border rounded-lg">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-2">Category *</label>
+                        <select id="category" required class="w-full px-4 py-3 border rounded-lg">
+                            <option value="Music">Music</option>
+                            <option value="Business">Business</option>
+                            <option value="Art">Art</option>
+                            <option value="Nightlife">Nightlife</option>
+                            <option value="Sports">Sports</option>
+                            <option value="Food">Food</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-2">Date *</label>
+                        <input type="date" id="date" required class="w-full px-4 py-3 border rounded-lg">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-2">Time *</label>
+                        <input type="time" id="time" required class="w-full px-4 py-3 border rounded-lg">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-2">Venue *</label>
+                        <input type="text" id="venue" required class="w-full px-4 py-3 border rounded-lg">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-2">Price *</label>
+                        <input type="text" id="price" required class="w-full px-4 py-3 border rounded-lg" placeholder="500 ETB or Free">
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block font-semibold mb-2">Description *</label>
+                    <textarea id="description" rows="3" required class="w-full px-4 py-3 border rounded-lg"></textarea>
+                </div>
+
+                <div>
+                    <label class="block font-semibold mb-2">Event Image *</label>
+                    <input type="file" id="imageFile" accept="image/*" class="w-full px-4 py-3 border rounded-lg mb-2" onchange="previewImage()">
+                    <p class="text-sm text-gray-600">Upload image from your computer</p>
+                    <img id="imagePreview" class="mt-4 w-full h-48 object-cover rounded-lg hidden" alt="Preview">
+                </div>
+
+                <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-lg text-xl">
+                    💾 Add Event
+                </button>
+            </form>
+        </div>
+
+        <!-- Current Events -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 mb-6">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">📅 Current Events (<span id="eventCount">0</span>)</h2>
+                <button onclick="deleteOldEvents()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-semibold">
+                    🗑️ Delete Old
+                </button>
+            </div>
+            <div id="eventsList" class="grid md:grid-cols-2 gap-4"></div>
+            <div id="noEvents" class="text-center py-12 text-gray-500">No events yet</div>
+        </div>
+
+        <!-- IMPORTANT: Upload to GitHub Section -->
+        <div class="bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-2xl shadow-xl p-8">
+            <h2 class="text-3xl font-bold mb-4">🚨 IMPORTANT: Make Events Live!</h2>
+            <p class="text-lg mb-4">After adding events, follow these steps to make them visible on ALL devices:</p>
+            
+            <div class="bg-white/20 rounded-xl p-6 mb-6">
+                <h3 class="font-bold text-xl mb-3">Step 1: Download Events File</h3>
+                <button onclick="downloadEventsFile()" class="bg-white text-red-600 font-bold py-3 px-8 rounded-lg hover:bg-gray-100 text-lg">
+                    📥 Download events.json
+                </button>
+                <p class="text-sm mt-2 opacity-90">This file contains all your events</p>
+            </div>
+
+            <div class="bg-white/20 rounded-xl p-6">
+                <h3 class="font-bold text-xl mb-3">Step 2: Upload to GitHub</h3>
+                <ol class="list-decimal list-inside space-y-2 text-sm">
+                    <li>Go to your GitHub repository</li>
+                    <li>Click "Add file" → "Upload files"</li>
+                    <li>Upload the <strong>events.json</strong> file you just downloaded</li>
+                    <li>Click "Commit changes"</li>
+                    <li>Wait 2 minutes</li>
+                    <li>✅ Events will now show on ALL devices!</li>
+                </ol>
+            </div>
+
+            <div class="mt-6 bg-white/20 rounded-xl p-4">
+                <p class="font-bold">💡 Pro Tip:</p>
+                <p class="text-sm">Every time you add/delete events, download the new file and upload it to GitHub to update your website!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let events = [];
+
+        // Load events from localStorage (temporary storage)
+        function loadEvents() {
+            const stored = localStorage.getItem('eventsaddis_admin_events');
+            if (stored) {
+                try {
+                    events = JSON.parse(stored);
+                } catch (e) {
+                    events = [];
+                }
+            }
+            return events;
+        }
+
+        // Save events to localStorage
+        function saveEvents() {
+            localStorage.setItem('eventsaddis_admin_events', JSON.stringify(events));
+            displayEventsList();
+            updateEventCount();
+        }
+
+        function updateEventCount() {
+            document.getElementById('eventCount').textContent = events.length;
+        }
+
+        function previewImage() {
+            const file = document.getElementById('imageFile').files[0];
+            const preview = document.getElementById('imagePreview');
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function addEvent(e) {
+            e.preventDefault();
+            
+            const file = document.getElementById('imageFile').files[0];
+            if (!file) {
+                alert('❌ Please upload an image!');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const newEvent = {
+                    id: Date.now(),
+                    title: document.getElementById('title').value,
+                    category: document.getElementById('category').value,
+                    date: document.getElementById('date').value,
+                    time: document.getElementById('time').value,
+                    venue: document.getElementById('venue').value,
+                    price: document.getElementById('price').value,
+                    description: document.getElementById('description').value,
+                    image: e.target.result,
+                    addedAt: new Date().toISOString()
+                };
+
+                events.unshift(newEvent);
+                saveEvents();
+
+                alert('✅ Event added!\n\n🚨 IMPORTANT: Click "Download events.json" below and upload it to GitHub to make this event visible on all devices!');
+                
+                // Reset form
+                document.getElementById('title').value = '';
+                document.getElementById('description').value = '';
+                document.getElementById('venue').value = '';
+                document.getElementById('price').value = '';
+                document.getElementById('imageFile').value = '';
+                document.getElementById('imagePreview').classList.add('hidden');
+                
+                // Scroll to download button
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function displayEventsList() {
+            const container = document.getElementById('eventsList');
+            const noEvents = document.getElementById('noEvents');
+
+            if (events.length === 0) {
+                container.classList.add('hidden');
+                noEvents.classList.remove('hidden');
+                return;
+            }
+
+            noEvents.classList.add('hidden');
+            container.classList.remove('hidden');
+
+            container.innerHTML = events.map(event => `
+                <div class="border rounded-lg p-4 hover:shadow-lg transition-shadow">
+                    <div class="flex gap-4">
+                        <img src="${event.image}" class="w-24 h-24 object-cover rounded-lg">
+                        <div class="flex-1">
+                            <h3 class="font-bold text-lg">${event.title}</h3>
+                            <p class="text-sm text-gray-600">📅 ${event.date} • ⏰ ${event.time}</p>
+                            <p class="text-sm text-gray-600">📍 ${event.venue} • 💵 ${event.price}</p>
+                            <span class="inline-block mt-2 px-2 py-1 bg-green-100 text-green-800 text-xs rounded">${event.category}</span>
+                        </div>
+                    </div>
+                    <button onclick="deleteEvent(${event.id})" class="w-full mt-3 bg-red-600 hover:bg-red-700 text-white text-sm py-2 rounded">Delete</button>
+                </div>
+            `).join('');
+        }
+
+        function deleteEvent(id) {
+            if (confirm('Delete this event?')) {
+                events = events.filter(e => e.id !== id);
+                saveEvents();
+                alert('✅ Event deleted!\n\n🚨 Remember to download the new events.json file and upload it to GitHub!');
+            }
+        }
+
+        function deleteOldEvents() {
+            const oneWeekAgo = new Date();
+            oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+            const before = events.length;
+            events = events.filter(event => {
+                const eventDate = new Date(event.date);
+                return eventDate >= oneWeekAgo;
+            });
+
+            const deleted = before - events.length;
+            
+            if (deleted === 0) {
+                alert('✅ No old events to delete!');
+            } else {
+                saveEvents();
+                alert(`🗑️ Deleted ${deleted} old event(s)!\n\n🚨 Download the new events.json file and upload it to GitHub!`);
+            }
+        }
+
+        // Download events as JSON file
+        function downloadEventsFile() {
+            if (events.length === 0) {
+                alert('❌ No events to download! Add some events first.');
+                return;
+            }
+
+            const dataStr = JSON.stringify(events, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'events.json';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+
+            alert('✅ events.json downloaded!\n\n📤 Now upload this file to your GitHub repository:\n\n1. Go to GitHub\n2. Click "Add file" → "Upload files"\n3. Upload events.json\n4. Click "Commit changes"\n5. Wait 2 minutes\n6. ✅ Events will show on ALL devices!');
+        }
+
+        // Initialize
+        events = loadEvents();
+        updateEventCount();
+        displayEventsList();
+    </script>
+</body>
+</html>
